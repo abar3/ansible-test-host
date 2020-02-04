@@ -1,7 +1,7 @@
 ---
 - name: "Included Role - ahuffman.resolv for WP Test"
   hosts: "test"
-  remote_user: "centos"
+  remote_user: "root"
   tasks:
     - name: "Configure resolv.conf"
       include_role:
