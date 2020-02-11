@@ -1,20 +1,8 @@
 ---
-- name: "Configure resolv.conf"
-  hosts: "ubuntutest"
-  remote_user: "ubuntu"
-  vars:
-        contents: "{{ lookup('thycotic_secret', 'thycotic', secret='3491', field='private-key') }}"
-  tasks:
+- hosts: localhost
+    vars:
+        contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=4, field='password'") }}
+    tasks:
       - include_vars:
             file: thycotic_sdk_config.yml
             name: thycotic
-        include_role:
-          name: "ahuffman.resolv"
-          resolv_nameservers:
-            - "10.10.92.11"
-            - "10.10.24.24"
-            - "10.64.111.7"
-          resolv_search:
-            - "wpprivate.com"
-            - "washpost.com"
-            - "washingtonpost.com"
