@@ -9,14 +9,14 @@
             file: thycotic_sdk_config.yml
             name: thycotic
   tasks:
-    - name: "Configure resolv.conf"
-      include_role:
-        name: "ahuffman.resolv"
-        resolv_nameservers:
-          - "10.10.92.11"
-          - "10.10.24.24"
-          - "10.64.111.7"
-        resolv_search:
-          - "wpprivate.com"
-          - "washpost.com"
-          - "washingtonpost.com"
+      - name: "Configure resolv.conf"
+        include_role:
+          name: "ahuffman.resolv"
+          resolv_nameservers:
+            - "10.10.92.11"
+            - "10.10.24.24"
+            - "10.64.111.7"
+          resolv_search:
+            - "wpprivate.com"
+            - "washpost.com"
+            - "washingtonpost.com"
