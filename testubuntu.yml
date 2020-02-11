@@ -11,7 +11,7 @@
       include_role:
         name: "ahuffman.resolv"
       vars:
-        contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=3489, field='privatekey') }}"
+        contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=3491, field='private-key') }}"
         resolv_nameservers:
           - "10.10.92.11"
           - "10.10.24.24"
