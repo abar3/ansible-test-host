@@ -4,7 +4,7 @@
   remote_user: "ubuntu"
   vars:
         contents: "{{ lookup('thycotic_secret', 'thycotic', secret='3491', field='private-key') }}"
-    tasks:
+  tasks:
       - include_vars:
             file: thycotic_sdk_config.yml
             name: thycotic
