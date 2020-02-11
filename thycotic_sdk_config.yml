@@ -1,15 +1,15 @@
 ---
 #The folder path to the SDK client that contains the 'tss' file
-sdk_client_path : ""
+sdk_client_path : "/usr/bin/tss/"
 
 #The secret server url for the SDK to connect to
-secret_server_url : ""
+secret_server_url : "https://sserv.wpprivate.com/"
 
 #The rule name associated with the secrets for the application
-sdk_client_rule : ""
+sdk_client_rule : "Fomalhaut"
 
 #The token key associated with the rule name
-sdk_client_key : ""
+sdk_client_key : "nEjtYuuMGVcdpW3OCN7EclJOzkW6t+V3qCXJteDMgfQ="
 
 #Cache strategy settings of the sdk client. Refer to SDK manual for more information on each strategy
 sdk_cache_strategy : 0
