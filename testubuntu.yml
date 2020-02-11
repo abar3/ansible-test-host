@@ -3,7 +3,7 @@
   hosts: "ubuntutest"
   remote_user: "ubuntu"
   vars:
-        contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=3491, field='private-key') }}"
+        contents: "{{ lookup('thycotic_secret', 'thycotic', secret='3491', field='private-key') }}"
     tasks:
       - include_vars:
             file: thycotic_sdk_config.yml
