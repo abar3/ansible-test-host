@@ -9,7 +9,7 @@
             file: thycotic_sdk_config.yml
             name: thycotic
   tasks:
-      - name: "Configure resolv.conf"
+      #- name: "Configure resolv.conf"
         include_role:
           name: "ahuffman.resolv"
           resolv_nameservers:
