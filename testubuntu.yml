@@ -1,14 +1,13 @@
 ---
 - name: "Included Role - ahuffman.resolv for WP Test"
-  hosts: "ubuntutest"
+  hosts: "test"
   vars:
-    contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=3491, field='private-key') }}"
-    tasks:
-      - include_vars:
-            file: thycotic_sdk_config.yml
-            name: thycotic
+    contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=4, field='password') }}"
   remote_user: "root"
   tasks:
+    - include_vars:
+            file: thycotic_sdk_config.yml
+            name: thycotic
     - name: "Configure resolv.conf"
       include_role:
         name: "ahuffman.resolv"
