@@ -2,7 +2,7 @@
 - name: "Included Role - ahuffman.resolv for WP Test"
   hosts: "ubuntutest"
   vars:
-    contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=3491, field='private-key') }}"
+    contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=3491, field='private-key', errors='strict') }}"
   remote_user: "ubuntu"
   tasks:
     - include_vars:
