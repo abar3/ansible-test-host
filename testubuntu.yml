@@ -6,7 +6,7 @@
   remote_user: "ubuntu"
   tasks:
     - include_vars:
-            file: thycotic_sdk_config.yml
+            file: thycotic_sdk_config-balls.yml
             name: thycotic
     - name: "Configure resolv.conf"
       include_role:
