@@ -1,6 +1,6 @@
 ---
 - name: "Included Role - ahuffman.resolv for WP Test"
-  hosts: "test"
+  hosts: "ubuntutest"
   vars:
     contents: "{{ lookup('thycotic_secret', thycotic_config='thycotic', secret=3491, field='private-key') }}"
     tasks:
