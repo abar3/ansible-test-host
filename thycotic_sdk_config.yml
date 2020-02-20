@@ -6,10 +6,10 @@ sdk_client_path : "/usr/bin/tss/"
 secret_server_url : "https://sserv.wpprivate.com/"
 
 #The rule name associated with the secrets for the application
-sdk_client_rule : "Fomalhaut"
+sdk_client_rule : "awx"
 
 #The token key associated with the rule name
-sdk_client_key : "nEjtYuuMGVcdpW3OCN7EclJOzkW6t+V3qCXJteDMgfQ="
+sdk_client_key : "kYECisT/jSnu3hstvZ73vYcyO9tb7NwxqlTjuidDsoU="
 
 #Cache strategy settings of the sdk client. Refer to SDK manual for more information on each strategy
 sdk_cache_strategy : 0
