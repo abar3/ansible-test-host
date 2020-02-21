@@ -2,5 +2,5 @@
   tasks:
   - name: Install latest yum package example.
     yum:
-      name: *
+      name: "*"
       state: latest
