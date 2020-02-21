@@ -1,4 +1,5 @@
   - name: update the system
+    host: "Test"
     yum:
       name: "*"
       state: latest
