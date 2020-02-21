@@ -1,6 +1,5 @@
-  - name: update the system
-    hosts: all
-    tasks:
-        yum:
-        name: "*"
-        state: latest
+- hosts: all
+  tasks:
+    yum:
+    name: "*"
+    state: latest
