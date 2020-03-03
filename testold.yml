@@ -1,6 +1,6 @@
 ---
 - name: "Included Role - ahuffman.resolv for WP Test"
-  hosts: "test"
+  hosts: all
   remote_user: "ubuntu"
   tasks:
     - name: "Configure resolv.conf"
