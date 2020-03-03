@@ -1,6 +1,6 @@
 ---                                             
 - name: test 
-  hosts: "ubuntutest"                              
+  hosts: all                             
   remote_user: "ubuntu"                                             
   tasks:                                        
     - name: test my_pluging 
