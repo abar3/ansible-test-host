@@ -1,5 +1,5 @@
 ---
-- hosts: localhost
+- hosts: all 
   vars:
       secret: "{{ lookup('tss', 3488) }}"
   tasks:
