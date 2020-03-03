@@ -3,5 +3,5 @@
   hosts: all                             
   remote_user: "ubuntu"                                             
   tasks:                                        
-    - name: test my_pluging 
+    - name: test ppk
       debug: msg={{ lookup('tss', 3489) }} 
