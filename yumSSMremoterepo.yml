@@ -1,0 +1,6 @@
+- hosts: all
+  tasks:
+  - name: Install SSM from remote repo
+    yum:
+      name: https://s3.amazonaws.com/ec2-downloads-windows/SSMAgent/latest/linux_amd64/amazon-ssm-agent.rpm
+      state: present
