@@ -1,0 +1,56 @@
+# Download dependencies for the RPM package
+- name: Downloading dependencies for the RPM package ...
+  yum:
+    name: libnl # libnl dependency required for falcon-sensor.
+    state: present # Ensure the package is always present after install.
+
+# Download the CrowdStrike Falcon agent for RedHat
+- name: Downloading the CrowdStrike Falcon RPM for RHEL7 ...
+  get_url:
+    url: "{{ rhel7['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ rhel7['csf_rpm_checksum'] }}" # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package Destination.
+    mode: 0744 # RWX Owner, R Group, R Other Users.
+  when: ansible_distribution_version.split('.')[0] == '7'
+  tags: download_falcon_rhel7
+
+# Download the CrowdStrike Falcon agent for RedHat
+- name: Downloading the CrowdStrike Falcon RPM for RHEL6 ...
+  get_url:
+    url: "{{ rhel6['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ rhel6['csf_rpm_checksum'] }}" # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package destination.
+    mode: 0744 # RWX Owner, R Group, R Other Users.
+  when: ansible_distribution_version.split('.')[0] == '6'
+  tags: download_falcon_rhel6
+
+# Install the downloaded CrowdStrike Falcon package for RedHat
+- name: Installing the CrowdStrike Falcon RPM ...
+  yum:
+    name: /tmp/crowdstrike_falcon.rpm # Location of the package.
+    state: present # install the package.
+  tags: install_rpm_package
+
+# Configure the CrowdStrike Falcon service
+- name: Configuring the CrowdStrike Falcon Service with the Customer ID ...
+  shell: "./falconctl -s -f --cid={{ customer_id }}"
+  args:
+    chdir: /opt/CrowdStrike/
+    executable: /bin/sh
+  tags: configure_service
+
+# Start the CrowdStrike Falcon Service
+- name: Starting the CrowdStrike Falcon Service ...
+  service:
+    name: falcon-sensor # Name of the Service.
+    enabled: True # Specifiy if service should persist after reboot.
+    state: started # Desired state of the service.
+  tags: start_service
+
+# Delete the downloaded CrowdStrike Falcon package
+- name: Deleting the CrowdStrike Falcon RPM ...
+  yum:
+    name: crowdstrike_falcon.rpm # Location of the package.
+    installroot: /tmp # Specifiy the RPM's parent directory.
+    state: absent # Delete the package.
+  tags: delete_rpm_package

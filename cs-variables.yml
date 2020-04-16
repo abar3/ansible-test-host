@@ -1,0 +1,26 @@
+url: https://resource.mcp-services.net/devops
+
+windows:
+  - csf_exe: WindowsSensor.exe
+  - csf_exe_url: "{{ url }}/{{ csf_exe }}"
+  - csf_exe_checksum:
+
+rhel7:
+  - csf_rpm: falcon-sensor-4.5.0-5015.el7.x86_64.rpm
+  - csf_rpm_url: "{{ url }}/{{ csf_rpm }}"
+  - csf_rpm_checksum: sha256:342895ec1a194a4fd2f84f60ef6ae0371ea172515646c07b303c43247c0c9749
+
+rhel6:
+  - csf_rpm: falcon-sensor-4.5.0-5015.el6.x86_64.rpm
+  - csf_rpm_url: "{{ url }}/{{ csf_rpm }}"
+  - csf_rpm_checksum: sha256:0b1d68cd04e892b881866a6fda49f8564e7d841c4285ae1ea97b053a69d8bb84
+
+suse11:
+  - csf_rpm: falcon-sensor-4.5.0-5015.suse11.x86_64.rpm
+  - csf_rpm_url: "{{ url }}/{{ csf_rpm }}"
+  - csf_rpm_checksum:
+
+suse12:
+  - csf_rpm: falcon-sensor-4.5.0-5015.suse12.x86_64.rpm
+  - csf_rpm_url: "{{ url }}/{{ csf_rpm }}"
+  - csf_rpm_checksum:

@@ -1,0 +1,41 @@
+# Download the CrowdStrike Falcon agent for Suse 11
+- name: Downloading the CrowdStrike Falcon RPM for RHEL7 ...
+  get_url:
+    url: '{{ suse11.csf_rpm_url }}' # Location of the source package.
+    checksum: '{{ suse11.csf_rpm_checksum }}' # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package Destination.
+    mode: 0644 # R+W Owner, R Group, R Other Users.
+  when: ansible_distribution_version.split('.')[0] == '7'
+  tags: download_falcon_suse11
+
+# Download the CrowdStrike Falcon agent for Suse 12
+- name: Downloading the CrowdStrike Falcon RPM for RHEL6 ...
+  get_url:
+    url: '{{ suse12.csf_rpm_url }}' # Location of the source package.
+    checksum: '{{ suse12.csf_rpm_checksum }}' # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package destination.
+    mode: 0644 # R+W Owner, R Group, R Other Users.
+  when: ansible_distribution_version.split('.')[0] == '6'
+  tags: download_falcon_suse12
+
+# Install the downloaded CrowdStrike Falcon package for RedHat
+- name: Installing the CrowdStrike Falcon RPM ...
+  package:
+    path: /tmp/crowdstrike_falcon.rpm # Location of the package.
+    state: present # install the package.
+  tags: install_rpm_package
+
+# Start the CrowdStrike Falcon Service
+- name: starting the CrowdStrike Falcon-sensor service ...
+  service:
+    name: falcon-sensor # Name of the Service.
+    enabled: True # State persist through boot. 
+    state: started # Desired state of the service.
+  tags: start_service
+
+# Delete the downloaded CrowdStrike Falcon package
+- name: Deleting the CrowdStrike Falcon RPM ...
+  package:
+    path: /tmp/crowdstrike_falcon.rpm # Location of the package.
+    state: absent # Delete the package.
+  tags: delete_rpm_package
