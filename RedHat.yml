@@ -1,3 +1,9 @@
+pre_tasks:
+- set_fact: ansible_distribution_major_version=9
+  when: ansible_distribution == "Amazon" and ansible_distribution_version == "1"
+- set_fact: ansible_distribution_major_version=10
+  when: ansible_distribution == "Amazon" and ansible_distribution_version == "2"
+
 # Download dependencies for the RPM package
 - name: Downloading dependencies for the RPM package ...
   yum:
@@ -23,6 +29,36 @@
     mode: 0744 # RWX Owner, R Group, R Other Users.
   when: ansible_distribution_version.split('.')[0] == '6'
   tags: download_falcon_rhel6
+
+  # Download the CrowdStrike Falcon agent for RedHat
+- name: Downloading the CrowdStrike Falcon RPM for RHEL8 ...
+  get_url:
+    url: "{{ rhel8['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ rhel6['csf_rpm_checksum'] }}" # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package destination.
+    mode: 0744 # RWX Owner, R Group, R Other Users.
+  when: ansible_distribution_version.split('.')[0] == '8'
+  tags: download_falcon_rhel8
+
+  # Download the CrowdStrike Falcon agent for RedHat
+- name: Downloading the CrowdStrike Falcon RPM for Amazon Linux 1 ...
+  get_url:
+    url: "{{ amzn1['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ amzn1['csf_rpm_checksum'] }}" # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package Destination.
+    mode: 0744 # RWX Owner, R Group, R Other Users.
+  when: ansible_distribution_major_version=9
+  tags: download_falcon_amzn1
+
+# Download the CrowdStrike Falcon agent for RedHat
+- name: Downloading the CrowdStrike Falcon RPM for Amazon Linux 2 ...
+  get_url:
+    url: "{{ amzn2['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ amzn2['csf_rpm_checksum'] }}" # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package destination.
+    mode: 0744 # RWX Owner, R Group, R Other Users.
+  when: ansible_distribution_major_version=10
+  tags: download_falcon_amzn2
 
 # Install the downloaded CrowdStrike Falcon package for RedHat
 - name: Installing the CrowdStrike Falcon RPM ...
