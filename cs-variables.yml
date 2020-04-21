@@ -1,4 +1,4 @@
-  - hosts: all
+import_playbook
 
 url: http://csdeploy.wpprivate.com
 
