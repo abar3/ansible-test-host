@@ -1,4 +1,4 @@
-- name: Crowdstrike variables for CSDeploy-old.yml
+  - hosts: all
 
 url: http://csdeploy.wpprivate.com
 
