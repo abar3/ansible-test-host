@@ -1,5 +1,3 @@
-import_playbook
-
 url: http://csdeploy.wpprivate.com
 
 customer_id: A1A8CB36EDE3423EA4C0FFAF01FB55A5-5E
@@ -8,6 +6,7 @@ rhel7:
   - csf_rpm: falcon-sensor-5.30.0-9508.el7.x86_64.rpm
   - csf_rpm_url: "{{ url }}/{{ csf_rpm }}"
   - csf_rpm_checksum: sha256:59c90042a88f810ff26ce628becd7b900d211086499c4497469c94f256f37f4b
+  - include: null.yml
 
 rhel6:
   - csf_rpm: falcon-sensor-5.30.0-9508.el6.x86_64.rpm

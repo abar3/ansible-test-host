@@ -3,6 +3,6 @@
   include_vars: "{{ lookup('first_found', possible_files) }}"
   vars:
     possible_files:
-      - "{{ ansible_distribution }}.yaml"
-      - "{{ ansible_os_family }}.yaml"
-      - default.yaml
+      - "{{ ansible_distribution }}.yml"
+      - "{{ ansible_os_family }}.yml"
+      - default.yml
