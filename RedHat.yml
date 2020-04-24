@@ -1,16 +1,22 @@
-- hosts: all
-  tasks:
+- hosts:
+
+pre_tasks:
+- set_fact: ansible_distribution_major_version=9
+  when: ansible_distribution == "Amazon" and ansible_distribution_version == "1"
+- set_fact: ansible_distribution_major_version=10
+  when: ansible_distribution == "Amazon" and ansible_distribution_version == "2"
+
 # Download dependencies for the RPM package
-#- name: Downloading dependencies for the RPM package ...
-#  yum:
-#    name: libnl # libnl dependency required for falcon-sensor.
-#    state: present # Ensure the package is always present after install.
+- name: Downloading dependencies for the RPM package ...
+  yum:
+    name: libnl # libnl dependency required for falcon-sensor.
+    state: present # Ensure the package is always present after install.
 
 # Download the CrowdStrike Falcon agent for RedHat
 - name: Downloading the CrowdStrike Falcon RPM for RHEL7 ...
   get_url:
-    url: "http://csdeploy.wpprivate.com" # Location of the source package.
-    checksum: "sha256:59c90042a88f810ff26ce628becd7b900d211086499c4497469c94f256f37f4b" # Post transfer file integrity check.
+    url: "{{ rhel7['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ rhel7['csf_rpm_checksum'] }}" # Post transfer file integrity check.
     dest: /tmp/crowdstrike_falcon.rpm # Final package Destination.
     mode: 0744 # RWX Owner, R Group, R Other Users.
   when: ansible_distribution_version.split('.')[0] == '7'
@@ -19,8 +25,8 @@
 # Download the CrowdStrike Falcon agent for RedHat
 - name: Downloading the CrowdStrike Falcon RPM for RHEL6 ...
   get_url:
-    url: "http://csdeploy.wpprivate.com" # Location of the source package.
-    checksum: "sha256:5a00456c4abee8c6a41db28b97e32997e097ff6c04619d6fcf66c490f5cf1db0" # Post transfer file integrity check.
+    url: "{{ rhel6['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ rhel6['csf_rpm_checksum'] }}" # Post transfer file integrity check.
     dest: /tmp/crowdstrike_falcon.rpm # Final package destination.
     mode: 0744 # RWX Owner, R Group, R Other Users.
   when: ansible_distribution_version.split('.')[0] == '6'
@@ -29,12 +35,32 @@
   # Download the CrowdStrike Falcon agent for RedHat
 - name: Downloading the CrowdStrike Falcon RPM for RHEL8 ...
   get_url:
-    url: "http://csdeploy.wpprivate.com" # Location of the source package.
-    checksum: "sha256:1259c827dd9809fe4dd2392ac590c25e8debaf0b139f8c2649427f7831f0c8e0" # Post transfer file integrity check.
+    url: "{{ rhel8['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ rhel6['csf_rpm_checksum'] }}" # Post transfer file integrity check.
     dest: /tmp/crowdstrike_falcon.rpm # Final package destination.
     mode: 0744 # RWX Owner, R Group, R Other Users.
   when: ansible_distribution_version.split('.')[0] == '8'
   tags: download_falcon_rhel8
+
+  # Download the CrowdStrike Falcon agent for RedHat
+- name: Downloading the CrowdStrike Falcon RPM for Amazon Linux 1 ...
+  get_url:
+    url: "{{ amzn1['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ amzn1['csf_rpm_checksum'] }}" # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package Destination.
+    mode: 0744 # RWX Owner, R Group, R Other Users.
+  when: ansible_distribution_major_version=9
+  tags: download_falcon_amzn1
+
+# Download the CrowdStrike Falcon agent for RedHat
+- name: Downloading the CrowdStrike Falcon RPM for Amazon Linux 2 ...
+  get_url:
+    url: "{{ amzn2['csf_rpm_url'] }}" # Location of the source package.
+    checksum: "{{ amzn2['csf_rpm_checksum'] }}" # Post transfer file integrity check.
+    dest: /tmp/crowdstrike_falcon.rpm # Final package destination.
+    mode: 0744 # RWX Owner, R Group, R Other Users.
+  when: ansible_distribution_major_version=10
+  tags: download_falcon_amzn2
 
 # Install the downloaded CrowdStrike Falcon package for RedHat
 - name: Installing the CrowdStrike Falcon RPM ...
@@ -45,7 +71,7 @@
 
 # Configure the CrowdStrike Falcon service
 - name: Configuring the CrowdStrike Falcon Service with the Customer ID ...
-  shell: "./falconctl -s -f --cid=A1A8CB36EDE3423EA4C0FFAF01FB55A5-5E"
+  shell: "./falconctl -s -f --cid={{ customer_id }}"
   args:
     chdir: /opt/CrowdStrike/
     executable: /bin/sh
