@@ -5,36 +5,6 @@
   when: ansible_distribution == "Amazon" and ansible_distribution_version == "1"
 - set_fact: ansible_distribution_major_version=10
   when: ansible_distribution == "Amazon" and ansible_distribution_version == "2"
-  
-- foo: http://csdeploy.wpprivate.com
-
-- customer_id: A1A8CB36EDE3423EA4C0FFAF01FB55A5-5E
-  
-- rhel7:
-  - csf_rpm: falcon-sensor-5.30.0-9508.el7.x86_64.rpm
-  - csf_rpm_url: "{{ foo }}/{{ csf_rpm }}"
-  - csf_rpm_checksum: sha256:59c90042a88f810ff26ce628becd7b900d211086499c4497469c94f256f37f4b
-  - include: null.yml
-
-- rhel6:
-  - csf_rpm: falcon-sensor-5.30.0-9508.el6.x86_64.rpm
-  - csf_rpm_url: "{{ foo }}/{{ csf_rpm }}"
-  - csf_rpm_checksum: sha256:5a00456c4abee8c6a41db28b97e32997e097ff6c04619d6fcf66c490f5cf1db0
-
-- rhel8:
-  - csf_rpm: falcon-sensor-5.30.0-9508.el8.x86_64.rpm
-  - csf_rpm_url: "{{ foo }}/{{ csf_rpm }}"
-  - csf_rpm_checksum: sha256:1259c827dd9809fe4dd2392ac590c25e8debaf0b139f8c2649427f7831f0c8e0
-  
-- amzn1:
-  - csf_rpm: falcon-sensor-5.30.0-9508.amzn1.x86_64.rpm
-  - csf_rpm_url: "{{ foo }}/{{ csf_rpm }}"
-  - csf_rpm_checksum: sha256:940714aaa8dfed54ed464f9fb19bf57998c131a547f9bb3ca091d795c337e761
-
-- amzn2:
-  - csf_rpm: falcon-sensor-5.30.0-9508.amzn2.x86_64.rpm
-  - csf_rpm_url: "{{ foo }}/{{ csf_rpm }}"
-  - csf_rpm_checksum: sha256:d7e2546fb7d9f5cdeb71ef340823d504b58e2d0a2a81131557f00985224ad420
 
 # Download dependencies for the RPM package
 - name: Downloading dependencies for the RPM package ...
