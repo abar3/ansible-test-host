@@ -1,11 +1,5 @@
 - hosts: all
 
-  pre_tasks:
-- set_fact: ansible_distribution_major_version=9
-  when: ansible_distribution == "Amazon" and ansible_distribution_version == "1"
-- set_fact: ansible_distribution_major_version=10
-  when: ansible_distribution == "Amazon" and ansible_distribution_version == "2"
-  
 - foo: http://csdeploy.wpprivate.com
 
 - customer_id: A1A8CB36EDE3423EA4C0FFAF01FB55A5-5E
