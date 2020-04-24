@@ -1,5 +1,5 @@
 - hosts: all
-
+  tasks:
 # Download dependencies for the RPM package
 - name: Downloading dependencies for the RPM package ...
   yum:
