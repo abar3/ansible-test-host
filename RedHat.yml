@@ -1,10 +1,10 @@
 - hosts: all
   tasks:
 # Download dependencies for the RPM package
-- name: Downloading dependencies for the RPM package ...
-  yum:
-    name: libnl # libnl dependency required for falcon-sensor.
-    state: present # Ensure the package is always present after install.
+#- name: Downloading dependencies for the RPM package ...
+#  yum:
+#    name: libnl # libnl dependency required for falcon-sensor.
+#    state: present # Ensure the package is always present after install.
 
 # Download the CrowdStrike Falcon agent for RedHat
 - name: Downloading the CrowdStrike Falcon RPM for RHEL7 ...
