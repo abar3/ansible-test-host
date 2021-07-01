@@ -4,3 +4,4 @@
       service:
         name: falcon-sensor
         state: restarted
+      become: yes
