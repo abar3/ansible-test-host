@@ -1,6 +1,6 @@
 - hosts: all
   tasks:
-  - name: Restart Falcon Sensor
-      service:
-      name: falcon-sensor
-      state: restarted
+- name: Restart Falcon Sensor for Crowdstrike
+  systemd:
+    name: falcon-sensor
+    state: restarted
